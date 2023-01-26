@@ -1,0 +1,13 @@
+{
+  "name": "tbp-web-worker",
+  "version": "0.0.0",
+  "devDependencies": {
+    "prettier": "^2.8.3",
+    "wrangler": "2.8.1"
+  },
+  "private": true,
+  "scripts": {
+    "start": "wrangler dev",
+    "deploy": "wrangler publish"
+  }
+}
