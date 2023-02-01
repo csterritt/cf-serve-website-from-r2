@@ -11,15 +11,46 @@ const DEBUG = true
 
 const html = `<!DOCTYPE html><html>  <head>    <meta charset="UTF-8" />    <meta name="viewport" content="width=device-width,initial-scale=1" />    <title>Todos</title>  </head>  <body>    <h1>Todos</h1>  </body></html>`
 
-async function handleHtmlRequest(request) {
-  const response = new Response(html, {
-    headers: { 'Content-Type': 'text/html' },
+async function handleHtmlRequest(request, env) {
+  // const key = 'index.html'
+  const url = new URL(request.url)
+  let key = url.pathname.slice(1)
+
+  if (key === '') {
+    key = 'index.html'
+  }
+
+  const object = await env.TBP_STORAGE_BUCKET.get(key)
+
+  if (object === null) {
+    return new Response('Object Not Found', { status: 404 })
+  }
+
+  const headers = new Headers()
+  object.writeHttpMetadata(headers)
+  headers.set('etag', object.httpEtag)
+
+  return new Response(object.body, {
+    headers,
   })
-  return response
+
+  // const response = new Response(html, {
+  //   headers: { 'Content-Type': 'text/html' },
+  // })
+  // return response
 }
 
-addEventListener('fetch', (event) => {
-  event.respondWith(handleHtmlRequest(event))
+const fetch = (event, env) => {
+  return handleHtmlRequest(event, env)
+}
+
+export default {
+  fetch,
+}
+
+addEventListener('fetch', async (event, env) => {
+  const resp = await handleHtmlRequest(event, env)
+  event.respondWith(resp)
 })
 //
 // async function handleEvent(event) {

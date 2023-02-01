@@ -1,3 +1,13 @@
 name = "tbp-web-worker"
 main = "src/index.js"
 compatibility_date = "2023-01-26"
+account_id = 'SET YOUR ACCOUNT ID HERE'
+workers_dev = true
+
+[dev]
+port = 4000
+
+[[r2_buckets]]
+binding = 'TBP_STORAGE_BUCKET' # <~ valid JavaScript variable name
+bucket_name = 'tbp-storage-prod'
+preview_bucket_name = 'tbp-storage'
