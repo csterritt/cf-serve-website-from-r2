@@ -1,4 +1,5 @@
-name = "tbp-web-worker"
+name = "upload-web-worker"
+compatibility_date = "2023-02-02"
 main = "src/index.js"
 compatibility_date = "2023-01-26"
 account_id = 'SET YOUR ACCOUNT ID HERE'
@@ -8,6 +9,6 @@ workers_dev = true
 port = 4000
 
 [[r2_buckets]]
-binding = 'TBP_STORAGE_BUCKET' # <~ valid JavaScript variable name
-bucket_name = 'tbp-storage'
-# preview_bucket_name = 'tbp-storage'
+binding = 'DOWNLOAD_STORAGE_BUCKET' # <~ valid JavaScript variable name
+bucket_name = 'downloads-storage'
+# preview_bucket_name = 'downloads-storage'
