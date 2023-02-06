@@ -9,5 +9,5 @@ port = 4000
 
 [[r2_buckets]]
 binding = 'TBP_STORAGE_BUCKET' # <~ valid JavaScript variable name
-bucket_name = 'tbp-storage-prod'
-preview_bucket_name = 'tbp-storage'
+bucket_name = 'tbp-storage'
+# preview_bucket_name = 'tbp-storage'
