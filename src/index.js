@@ -17,15 +17,21 @@ async function handleHtmlRequest(request, env) {
     key = 'index.html'
   }
 
-  const object = await env.DOWNLOAD_STORAGE_BUCKET.get(key)
+  const object = await env.TBP_STORAGE_BUCKET.get(key)
 
   if (object === null) {
     return new Response('Object Not Found', { status: 404 })
   }
 
+  let age = 10
+  if (key.indexOf('index.html') === -1) {
+    age = 306923798
+  }
+
   const headers = new Headers()
   object.writeHttpMetadata(headers)
   headers.set('etag', object.httpEtag)
+  headers.set('Cache-Control', `Max-Age=${age}`)
 
   return new Response(object.body, {
     headers,
